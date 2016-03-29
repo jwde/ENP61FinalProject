@@ -76,7 +76,7 @@ function render() {
 
     // draw the ball
     context.beginPath();
-    context.rect(ballx - .5 * ballsize, bally - .5 * ballsize, ballsize, ballsize);
+    context.rect(ballx * width - .5 * ballsize, bally * height - .5 * ballsize, ballsize, ballsize);
     context.fillStyle = "rgba(255, 255, 255, .5)";
     context.fill();
     context.lineWidth = 2.0;
