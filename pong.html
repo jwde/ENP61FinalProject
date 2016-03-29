@@ -23,7 +23,7 @@ var paddlexmax = 1 - paddlelength / 2;
 var ballx = .5;
 var bally = .5;
 // ballsize is absolute
-var ballsize = 25;
+var ballsize = 15;
 var width = 0;
 var height = 0;
 var frame = false;
@@ -77,10 +77,10 @@ function render() {
     // draw the ball
     context.beginPath();
     context.rect(ballx * width - .5 * ballsize, bally * height - .5 * ballsize, ballsize, ballsize);
-    context.fillStyle = "rgba(255, 255, 255, .5)";
+    context.fillStyle = "rgba(0, 0, 0, 0.7)";
     context.fill();
     context.lineWidth = 2.0;
-    context.strokeStyle = "rgba(255, 255, 255, 1)"
+    context.strokeStyle = "rgba(0, 0, 0, 1)";
     context.stroke();
     context.closePath();
 
