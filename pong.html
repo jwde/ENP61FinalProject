@@ -16,19 +16,42 @@ var p1x = .5;
 var p2x = .5;
 var p1ybound = .8;
 var p2ybound = .2;
+var p1y = (p1ybound + .5 * (1 - p1ybound));
+var p2y = .5 * p2ybound;
 var paddlelength = .25;
 var paddlewidth = .02;
 var paddlexmin = paddlelength / 2;
 var paddlexmax = 1 - paddlelength / 2;
 var ballx = .5;
 var bally = .5;
+var ballvx = .001;
+var ballvy = .003;
 // ballsize is absolute
 var ballsize = 15;
 var width = 0;
 var height = 0;
 var frame = false;
 
+function physics() {
+    if (bally < p1y && bally + ballvy >= p1y && 
+        ballx < p1x + paddlelength / 2 && ballx > p1x - paddlelength / 2) {
+        ballvy *= -1;
+        ballvx += (ballx - p1x) * .025;
+    }
+    if (bally > p2y && bally + ballvy <= p2y && 
+        ballx < p2x + paddlelength / 2 && ballx > p2x - paddlelength / 2) {
+        ballvy *= -1;
+        ballvx += (ballx - p2x) * .025;
+    }
+    ballx += ballvx;
+    bally += ballvy;
+    if (ballx > 1 || ballx < 0) {
+        ballvx *= -1;
+    }
+}
+
 function render() {
+    physics();
     if (frame) return;
     frame = true;
     if (width != window.innerWidth || height != window.innerHeight) {
@@ -56,7 +79,7 @@ function render() {
 
     // draw p1
     context.beginPath();
-    context.rect(p1x * width - .5 * width * paddlelength, (p1ybound + .5 * (1 - p1ybound)) * height, width * paddlelength, height * paddlewidth);
+    context.rect(p1x * width - .5 * width * paddlelength, p1y * height, width * paddlelength, height * paddlewidth);
     context.fillStyle = "rgba(255, 0, 0, 0.5)";
     context.fill();
     context.lineWidth = 2.0;
@@ -66,7 +89,7 @@ function render() {
 
     // draw p2
     context.beginPath();
-    context.rect(p2x * width - .5 * width * paddlelength, .5 * p2ybound * height, width * paddlelength, height * paddlewidth);
+    context.rect(p2x * width - .5 * width * paddlelength, p2y * height, width * paddlelength, height * paddlewidth);
     context.fillStyle = "rgba(0, 0, 255, 0.5)";
     context.fill();
     context.lineWidth = 2.0;
