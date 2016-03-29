@@ -48,6 +48,10 @@ function physics() {
     if (ballx > 1 || ballx < 0) {
         ballvx *= -1;
     }
+    if (bally > 1 || bally < 0) {
+        ballx = .5;
+        bally = .5;
+    }
 }
 
 function render() {
